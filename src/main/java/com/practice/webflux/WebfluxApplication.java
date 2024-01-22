@@ -14,9 +14,6 @@ public class WebfluxApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WebfluxApplication.class, args);
-        TestWebClient wc = new TestWebClient();
-
-        System.out.println(wc);
     }
 
 }

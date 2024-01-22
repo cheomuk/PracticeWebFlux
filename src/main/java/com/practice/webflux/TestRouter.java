@@ -12,8 +12,9 @@ public class TestRouter {
     @Bean
     public RouterFunction<ServerResponse> route(TestHandler testHandler){
         return RouterFunctions.route()
-                .GET("/api/v1/hi", testHandler::hi)
-                .GET("/api/v1/test/{id}", testHandler::test)
+                .POST("/api/v1/characters", testHandler::saveCharacter)
+                .GET("/api/v1/characters/{id}", testHandler::getCharacterById)
+                .GET("/api/v1/characters", testHandler::getAllCharacters)
                 .build();
     }
 }

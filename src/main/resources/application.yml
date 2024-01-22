@@ -1,3 +1,27 @@
 server:
   port: 8888
 
+spring:
+  r2dbc:
+    url: ENC(ckvd/19wOhRHs/zd66/hpieqTRPjyhzWTWzg9c6UY9b4xfT5gza0EaBGRu93JbUD1us3SlV0lEM=)
+    username: ENC(o0EH+kKp9DpVdYcKF47h3A==)
+    password: ENC(DM84j+vmejSBAWHGjqm3WoH9k+8KXSvP)
+    pool:
+      enabled: true
+      initial-size: 10
+      max-acquire-time: 5s
+      max-create-connection-time: 5s
+      max-idle-time: 60m
+      max-life-time: 60m
+      max-size: 10
+
+apiKey: ENC(H1wr038v/MRjSqEe1wfWJfg4LbayG8tM6stD7cQwFofhriD6rdVFJJs102/9l3tLcv8iUmMBc7NpouDDiFQKgMQ6cKz/dbwF/TrVH8iMQ7jakTB7atTzhf6yyJ06FCiBd9/6DTicLJdGMOCRsHiDEQ==)
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+logging:
+  level:
+    io.r2dbc.pool: DEBUG
+    reactor.pool: DEBUG
