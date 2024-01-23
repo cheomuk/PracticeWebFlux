@@ -1,7 +1,6 @@
 package com.practice.webflux;
 
 import com.practice.webflux.dto.RequestNicknameDto;
-import com.practice.webflux.dto.RequestOcidDto;
 import com.practice.webflux.entity.TestEntity;
 import com.practice.webflux.repository.TestRepository;
 import org.springframework.http.MediaType;
@@ -23,12 +22,11 @@ public class TestHandler {
     }
 
     public Mono<ServerResponse> saveCharacter(ServerRequest request) {
-        Mono<Object> characterMono = request.bodyToMono(RequestNicknameDto.class)
+        Mono<String> characterMono = request.bodyToMono(RequestNicknameDto.class)
                 .flatMap(dto -> Mono.justOrEmpty(dto.getCharacterName()));
-        Mono<Object> ocid = webClient.getCharacterId(String.valueOf(characterMono))
+        Mono<String> ocid = characterMono.flatMap(webClient::getCharacterId)
                 .flatMap(dto -> Mono.justOrEmpty(dto.getOcid()));
-        Mono<TestEntity> characterValue = webClient.getCharacterInfo(String.valueOf(ocid));
-        // ocid 가 MonoFlatMap 그대로 String 화 되어서 입력되는 문제 발생.
+        Mono<TestEntity> characterValue = ocid.flatMap(webClient::getCharacterInfo);
 
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)

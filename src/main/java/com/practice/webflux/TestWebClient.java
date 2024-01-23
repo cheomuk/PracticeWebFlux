@@ -1,12 +1,13 @@
 package com.practice.webflux;
 
-import com.practice.webflux.dto.RequestNicknameDto;
 import com.practice.webflux.dto.RequestOcidDto;
 import com.practice.webflux.entity.TestEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDate;
 
 @Component
 public class TestWebClient {
@@ -23,7 +24,7 @@ public class TestWebClient {
     public Mono<RequestOcidDto> getCharacterId(String characterName) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/maplestory/v1/id")
-                        .queryParam("characterName", characterName)
+                        .queryParam("character_name", characterName)
                         .build())
                 .header("x-nxopen-api-key", apiKey)
                 .retrieve()
@@ -34,6 +35,7 @@ public class TestWebClient {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/maplestory/v1/character/basic")
                         .queryParam("ocid", ocid)
+                        .queryParam("date", LocalDate.now().minusDays(1).toString())
                         .build())
                 .header("x-nxopen-api-key", apiKey)
                 .retrieve()
